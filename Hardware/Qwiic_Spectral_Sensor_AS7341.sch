@@ -7913,6 +7913,9 @@ Switches electrical signals</description>
 <part name="J2" library="SparkFun-Connectors" deviceset="CONN_05" device="NO_SILK"/>
 <part name="GND3" library="SparkFun-PowerSymbols" deviceset="GND" device=""/>
 <part name="SUPPLY2" library="SparkFun-PowerSymbols" deviceset="3.3V" device=""/>
+<part name="C5" library="SparkFun-Capacitors" deviceset="0.1UF" device="-0603-25V-(+80/-20%)" value="0.1uF"/>
+<part name="GND12" library="SparkFun-PowerSymbols" deviceset="GND" device=""/>
+<part name="SUPPLY17" library="SparkFun-PowerSymbols" deviceset="1.8V" device=""/>
 </parts>
 <sheets>
 <sheet>
@@ -8139,6 +8142,16 @@ Switches electrical signals</description>
 <instance part="SUPPLY2" gate="G$1" x="109.22" y="38.1" smashed="yes">
 <attribute name="VALUE" x="109.22" y="40.894" size="1.778" layer="96" align="bottom-center"/>
 </instance>
+<instance part="C5" gate="G$1" x="12.7" y="157.48" smashed="yes">
+<attribute name="NAME" x="14.224" y="160.401" size="1.778" layer="95" font="vector"/>
+<attribute name="VALUE" x="14.224" y="155.321" size="1.778" layer="96" font="vector"/>
+</instance>
+<instance part="GND12" gate="1" x="12.7" y="149.86" smashed="yes">
+<attribute name="VALUE" x="12.7" y="149.606" size="1.778" layer="96" align="top-center"/>
+</instance>
+<instance part="SUPPLY17" gate="G$1" x="12.7" y="165.1" smashed="yes">
+<attribute name="VALUE" x="12.7" y="167.894" size="1.778" layer="96" align="bottom-center"/>
+</instance>
 </instances>
 <busses>
 </busses>
@@ -8343,6 +8356,11 @@ Switches electrical signals</description>
 <wire x1="109.22" y1="22.86" x2="109.22" y2="20.32" width="0.1524" layer="91"/>
 <pinref part="GND3" gate="1" pin="GND"/>
 </segment>
+<segment>
+<pinref part="C5" gate="G$1" pin="2"/>
+<pinref part="GND12" gate="1" pin="GND"/>
+<wire x1="12.7" y1="152.4" x2="12.7" y2="154.94" width="0.1524" layer="91"/>
+</segment>
 </net>
 <net name="N$4" class="0">
 <segment>
@@ -8432,6 +8450,11 @@ Switches electrical signals</description>
 <pinref part="R4" gate="G$1" pin="2"/>
 <wire x1="73.66" y1="167.64" x2="73.66" y2="170.18" width="0.1524" layer="91"/>
 <pinref part="SUPPLY16" gate="G$1" pin="1.8V"/>
+</segment>
+<segment>
+<pinref part="C5" gate="G$1" pin="1"/>
+<pinref part="SUPPLY17" gate="G$1" pin="1.8V"/>
+<wire x1="12.7" y1="165.1" x2="12.7" y2="162.56" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="N$6" class="0">
