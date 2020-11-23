@@ -87,20 +87,20 @@
 <symbols>
 <symbol name="AS7341">
 <description>Schematic symbol for the AS7341 spectral sensor by AMS. More information can be found here: &lt;a href=https://ams.com/as7341#tab/description&gt;https://ams.com/as7341#tab/description&lt;/a&gt;</description>
-<wire x1="-12.7" y1="10.16" x2="-12.7" y2="-10.16" width="0.254" layer="94"/>
-<wire x1="-12.7" y1="-10.16" x2="12.7" y2="-10.16" width="0.254" layer="94"/>
-<wire x1="12.7" y1="-10.16" x2="12.7" y2="10.16" width="0.254" layer="94"/>
-<wire x1="12.7" y1="10.16" x2="-12.7" y2="10.16" width="0.254" layer="94"/>
-<pin name="VDD" x="-15.24" y="7.62" visible="pin" length="short" direction="pwr"/>
-<pin name="SCL" x="15.24" y="5.08" visible="pin" length="short" rot="R180"/>
-<pin name="GND" x="-15.24" y="-7.62" visible="pin" length="short" direction="pwr"/>
-<pin name="LDR" x="15.24" y="-7.62" visible="pin" length="short" rot="R180"/>
-<pin name="PGND" x="-15.24" y="-5.08" visible="pin" length="short" direction="pwr"/>
-<pin name="GPIO" x="15.24" y="-5.08" visible="pin" length="short" rot="R180"/>
-<pin name="INT" x="15.24" y="-2.54" visible="pin" length="short" rot="R180"/>
-<pin name="SDA" x="15.24" y="7.62" visible="pin" length="short" rot="R180"/>
-<text x="-12.7" y="11.176" size="1.778" layer="95" font="vector">&gt;Name</text>
-<text x="-12.7" y="-12.7" size="1.778" layer="96" font="vector">&gt;Value</text>
+<wire x1="-10.16" y1="7.62" x2="-10.16" y2="-7.62" width="0.254" layer="94"/>
+<wire x1="-10.16" y1="-7.62" x2="10.16" y2="-7.62" width="0.254" layer="94"/>
+<wire x1="10.16" y1="-7.62" x2="10.16" y2="7.62" width="0.254" layer="94"/>
+<wire x1="10.16" y1="7.62" x2="-10.16" y2="7.62" width="0.254" layer="94"/>
+<pin name="VDD" x="-12.7" y="5.08" visible="pin" length="short" direction="pwr"/>
+<pin name="SCL" x="12.7" y="2.54" visible="pin" length="short" rot="R180"/>
+<pin name="GND" x="-12.7" y="-5.08" visible="pin" length="short" direction="pwr"/>
+<pin name="LDR" x="12.7" y="-5.08" visible="pin" length="short" rot="R180"/>
+<pin name="PGND" x="-12.7" y="-2.54" visible="pin" length="short" direction="pwr"/>
+<pin name="GPIO" x="12.7" y="-2.54" visible="pin" length="short" rot="R180"/>
+<pin name="INT" x="12.7" y="0" visible="pin" length="short" rot="R180"/>
+<pin name="SDA" x="12.7" y="5.08" visible="pin" length="short" rot="R180"/>
+<text x="-10.16" y="8.636" size="1.778" layer="95" font="vector">&gt;Name</text>
+<text x="-10.16" y="-10.16" size="1.778" layer="96" font="vector">&gt;Value</text>
 </symbol>
 </symbols>
 <devicesets>
