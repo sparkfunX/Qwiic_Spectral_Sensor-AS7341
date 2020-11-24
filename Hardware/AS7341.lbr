@@ -97,7 +97,7 @@
 <pin name="LDR" x="12.7" y="-5.08" visible="pin" length="short" rot="R180"/>
 <pin name="PGND" x="-12.7" y="-2.54" visible="pin" length="short" direction="pwr"/>
 <pin name="GPIO" x="12.7" y="-2.54" visible="pin" length="short" rot="R180"/>
-<pin name="INT" x="12.7" y="0" visible="pin" length="short" rot="R180"/>
+<pin name="!INT!" x="12.7" y="0" visible="pin" length="short" rot="R180"/>
 <pin name="SDA" x="12.7" y="5.08" visible="pin" length="short" rot="R180"/>
 <text x="-10.16" y="8.636" size="1.778" layer="95" font="vector">&gt;Name</text>
 <text x="-10.16" y="-10.16" size="1.778" layer="96" font="vector">&gt;Value</text>
@@ -112,9 +112,9 @@
 <devices>
 <device name="OLGA" package="OLGA8">
 <connects>
+<connect gate="U1" pin="!INT!" pad="7"/>
 <connect gate="U1" pin="GND" pad="3"/>
 <connect gate="U1" pin="GPIO" pad="6"/>
-<connect gate="U1" pin="INT" pad="7"/>
 <connect gate="U1" pin="LDR" pad="4"/>
 <connect gate="U1" pin="PGND" pad="5"/>
 <connect gate="U1" pin="SCL" pad="2"/>
