@@ -4595,7 +4595,6 @@ These rules have been curated by SparkFuns DFM commitee. After doing much resear
 <attribute name="PROD_ID" value="DIO-00819" x="6.35" y="25.4" size="1.778" layer="27" font="vector" ratio="15" rot="R180" display="off"/>
 <attribute name="VALUE" x="6.35" y="26.035" size="0.6096" layer="27" font="vector" ratio="20" rot="R180" align="top-center"/>
 </element>
-<element name="U$2" library="SparkFun-Aesthetics" package="QWIIC_6MM" value="" x="28.575" y="11.049" smashed="yes"/>
 <element name="FRAME1" library="SparkFun-Aesthetics" package="CREATIVE_COMMONS" value="FRAME-LETTER" x="20.32" y="-7.62" smashed="yes">
 <attribute name="DESIGNER" value="" x="20.32" y="-7.62" size="1.778" layer="27" font="vector" ratio="15" display="off"/>
 <attribute name="REV" value="" x="20.32" y="-7.62" size="1.778" layer="27" font="vector" ratio="15" display="off"/>
@@ -4631,7 +4630,6 @@ These rules have been curated by SparkFuns DFM commitee. After doing much resear
 <element name="U$18" library="output" package="#SDA#0" value="" x="15.24" y="1.651" smashed="yes" rot="MR90"/>
 <element name="U$19" library="output" package="#SCL#0" value="" x="17.78" y="1.651" smashed="yes" rot="R90"/>
 <element name="U$20" library="output" package="#SCL#0" value="" x="17.78" y="1.651" smashed="yes" rot="MR90"/>
-<element name="U$6" library="SparkX" package="SPARKX-SMALL" value="" x="5.08" y="7.62" smashed="yes"/>
 <element name="U$7" library="SparkX" package="SPARKX-SMALL" value="" x="5.08" y="7.62" smashed="yes" rot="MR0"/>
 <element name="U1" library="AS7341" package="OLGA8" value="AS7341OLGA" x="16.51" y="16.51" smashed="yes" rot="R270">
 <attribute name="NAME" x="14.478" y="18.161" size="0.635" layer="25" font="vector" rot="R270"/>
@@ -4761,6 +4759,8 @@ These rules have been curated by SparkFuns DFM commitee. After doing much resear
 <element name="U$25" library="output" package="##INT##0" value="" x="20.32" y="1.778" smashed="yes" rot="MR90"/>
 <element name="U$26" library="output" package="#GPIO#0" value="" x="22.86" y="1.778" smashed="yes" rot="R90"/>
 <element name="U$27" library="output" package="#GPIO#0" value="" x="22.86" y="1.778" smashed="yes" rot="MR90"/>
+<element name="U$31" library="SparkX" package="SPARKX-SMALL" value="SPARKX-LOGO3" x="5.08" y="7.62" smashed="yes"/>
+<element name="LOGO1" library="SparkFun-Aesthetics" package="QWIIC_6MM" value="QWIIC_LOGO_6MM" x="28.575" y="11.049" smashed="yes"/>
 </elements>
 <signals>
 <signal name="3.3V">
