@@ -112,7 +112,35 @@ public:
 	// Return ADC gain
 	AS7341L_GAIN getGain();
 
+	// Enables interrupt pin functionality
+	void enableInterupt();
 	
+	// Disables interrupt pin functionality
+	void disableInterrupt();
+	
+	// Clears the interrupt flag
+	void clearInterrupt();
+	
+	// Reads register
+	byte readRegister(byte reg);
+	
+	// Writes register
+	void setRegister(byte reg, byte value);
+	
+	// Sets GPIO as input
+	void setGpioPinInput();
+	
+	// Sets GPIO as output
+	void setGpioPinOutput();
+	
+	// Reads GPIO pin value
+	bool digitalRead();
+	
+	// Inverts GPIO pin output
+	void invertGpioOutput(bool isInverted);
+	
+	// Writes GPIO pin
+	void digitalWrite(byte value);
 };
 
 #endif // ! __SPARKFUN_AS7341L_LIBRARY__

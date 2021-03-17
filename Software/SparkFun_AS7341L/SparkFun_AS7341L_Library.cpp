@@ -145,7 +145,7 @@ byte SparkFun_AS7341L::getLastError()
 void SparkFun_AS7341L::setLedDrive(unsigned int current)
 {
 	// Do not allow invalid values to be set
-	if (current < 4)
+	if(current < 4)
 		current = 4;
 	if (current > 258)
 		current = 258;
@@ -403,7 +403,9 @@ bool SparkFun_AS7341L::readAllChannels(unsigned int* channelData)
 	as7341_io.readMultipleBytes(REGISTER_CH0_DATA_L, buffer, 12);
 	
 	for (int i = 0; i < 6; i++)
-		channelData[i+6] = buffer[2*i + 1] << 8 | buffer[2*i];
+		channelData[i + 6] = buffer[2*i + 1] << 8 | buffer[2*i];
+	
+	return true;
 }
 
 void SparkFun_AS7341L::setMuxLo()
@@ -525,3 +527,65 @@ float SparkFun_AS7341L::readSingleChannelBasicCount(AS7341L_CHANNELS channel)
 	return (float(rawValue) / (gain * tint));
 }
 
+void SparkFun_AS7341L::enableInterupt()
+{
+	as7341_io.setRegisterBit(REGISTER_INTENAB, 0);
+	as7341_io.setRegisterBit(REGISTER_INTENAB, 3);
+}
+
+void SparkFun_AS7341L::disableInterrupt()
+{
+	as7341_io.clearRegisterBit(REGISTER_INTENAB, 0);
+	as7341_io.clearRegisterBit(REGISTER_INTENAB, 3);
+}
+
+void SparkFun_AS7341L::clearInterrupt()
+{
+	as7341_io.writeSingleByte(REGISTER_STATUS, 0xff);
+}
+
+byte SparkFun_AS7341L::readRegister(byte reg)
+{
+	as7341_io.readSingleByte(reg);
+}
+
+void SparkFun_AS7341L::setRegister(byte reg, byte value)
+{
+	as7341_io.writeSingleByte(reg, value);
+}
+
+void SparkFun_AS7341L::setGpioPinInput()
+{
+	// Disable GPIO as output driver
+	as7341_io.setRegisterBit(REGISTER_GPIO_2, 1);
+	// Enable GPIO as input
+	as7341_io.setRegisterBit(REGISTER_GPIO_2, 2);
+}
+
+void SparkFun_AS7341L::setGpioPinOutput()
+{
+	// Disable GPIO input
+	as7341_io.clearRegisterBit(REGISTER_GPIO_2, 2);
+}
+
+bool SparkFun_AS7341L::digitalRead()
+{
+	return as7341_io.isBitSet(REGISTER_GPIO_2, 0);
+}
+
+void SparkFun_AS7341L::invertGpioOutput(bool isInverted)
+{
+	if (isInverted)
+		as7341_io.setRegisterBit(REGISTER_GPIO_2, 3);
+	else
+		as7341_io.clearRegisterBit(REGISTER_GPIO_2, 3);
+}
+
+void SparkFun_AS7341L::digitalWrite(byte value)
+{
+	// If value is 0, let go the driver
+	if (value == 0)
+		as7341_io.clearRegisterBit(REGISTER_GPIO_2, 1);
+	else
+		as7341_io.setRegisterBit(REGISTER_GPIO_2, 1);
+}
