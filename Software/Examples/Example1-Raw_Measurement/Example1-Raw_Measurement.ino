@@ -5,18 +5,17 @@
   Date: March 15th, 2021
   SparkFun code, firmware, and software is released under the MIT License. Please see LICENSE.md for further details.
   Feel like supporting our work? Buy a board from SparkFun!
-  https://www.sparkfun.com/products/
+  https://www.sparkfun.com/products/17719
 
   This example shows how to read all channels (F1 to F8, CLEAR and NIR) and get raw values from the sensor.
 
   Hardware Connections:
-  - Attach the Qwiic Shield to your Arduino/Photon/ESP32 or other
-  - Plug the sensor onto the shield
-  - Serial.print it out at 115200 baud to serial monitor.
+  - Plug the Qwiic device to your Arduino/Photon/ESP32 using a cable
+  - Open a serial monitor at 115200bps
 */
 
 #include <Wire.h>
-#include "SparkFun_AS7341L_Library.h"
+#include "SparkFun_AS7341L_Arduino_Library.h"
 
 // Main AS7341L object
 SparkFun_AS7341L as7341L;
@@ -64,7 +63,7 @@ void setup()
   if (result == false)
   {
     PrintErrorMessage();
-    Serial.println("Check you connections. System halted !");
+    Serial.println("Check your connections. System halted !");
     digitalWrite(LED_BUILTIN, LOW); 
     while (true) ;
   }

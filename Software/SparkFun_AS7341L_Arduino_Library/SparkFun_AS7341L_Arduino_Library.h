@@ -1,7 +1,7 @@
 /*
   This is a library written for the AMS AS7341L 10-Channel Spectral Sensor Frontend
   SparkFun sells these at its website:
-  https://www.sparkfun.com/products/
+  https://www.sparkfun.com/products/17719
 
   Do you like this library? Help support open source hardware. Buy a board!
 
@@ -26,11 +26,16 @@
 class SparkFun_AS7341L
 {
 private:
+	// AS7341L I2C interface object
 	SparkFun_AS7341L_IO as7341_io;
+	
+	// PCA9536 I2C interface object
 	PCA9536 pca9536_io;
+
 	byte lastError;	
 	
 	bool whiteLedPowered = false;
+	
 	bool IRLedPowered = false;
 	
 	// Sets F1 to F4 + Clear + NIR to ADCs inputs
@@ -39,8 +44,14 @@ private:
 	// Sets F5 to F8 + Clear + NIR to ADCs inputs
 	void setMuxHi();	
 
+	// Reads single channel value after mux setup
+	uint16_t readSingleChannelValue();
+	
+	// Converts raw value to basic count value
+	float readSingleBasicCountChannelValue(uint16_t raw);
+	
 public:
-	// Default constructor
+	// Default empty constructor
 	SparkFun_AS7341L() {}
 	
 	// Initialize AS7341L and PCA9536
@@ -52,14 +63,8 @@ public:
 	// Read all channels raw values
 	bool readAllChannels(unsigned int* channelData);
 	
-	// Read a single channel raw value
-	unsigned int readSingleChannel(AS7341L_CHANNELS channel);
-	
 	// Read all channels basic counts. Further information can be found in AN000633, page 7
 	bool readAllChannelsBasicCounts(float* channelDataBasicCounts);
-	
-	// Read a single channel basic count.
-	float readSingleChannelBasicCount(AS7341L_CHANNELS channel);
 	
 	// Enable AS7341L
 	void enable_AS7341L();
@@ -94,10 +99,10 @@ public:
 	// Turn infrared LED off
 	void disableIRLed();
 	
-	// Set ADC integration time
+	// Set ADC integration time (defaults to 29)
 	void setATIME(byte aTime = 29);
 	
-	// Set ADC integration steps
+	// Set ADC integration steps (defaults to 599)
 	void setASTEP(unsigned int aStep = 599);
 	
 	// Return ADC integration time
@@ -125,7 +130,7 @@ public:
 	byte readRegister(byte reg);
 	
 	// Writes register
-	void setRegister(byte reg, byte value);
+	void writeRegister(byte reg, byte value);
 	
 	// Sets GPIO as input
 	void setGpioPinInput();
@@ -141,6 +146,67 @@ public:
 	
 	// Writes GPIO pin
 	void digitalWrite(byte value);
+	
+	// Read raw value of 415 nm channel
+	unsigned int read415nm();
+	
+	// Read 445 nm channel raw value
+	unsigned int read445nm();
+	
+	// Read raw value of 480 nm channel
+	unsigned int read480nm();
+	
+	// Read raw value of 515 nm channel
+	unsigned int read515nm();
+	
+	// Read raw value of 555 nm channel
+	unsigned int read555nm();
+	
+	// Read raw value of 590 nm channel
+	unsigned int read590nm();
+	
+	// Read raw value of 630 nm channel
+	unsigned int read630nm();
+	
+	// Read raw value of 680 nm channel
+	unsigned int read680nm();
+	
+	// Read raw value of clear channel
+	unsigned int readClear();
+	
+	// Read raw value of NIR channel
+	unsigned int readNIR();
+	
+	// Read basic count value of 445 nm channel
+	float readBasicCount415nm();
+	
+	// Read basic count value of 445 nm channel
+	float readBasicCount445nm();
+	
+	// Read basic count value of 480 nm channel
+	float readBasicCount480nm();
+	
+	// Read basic count value of 515 nm channel
+	float readBasicCount515nm();
+	
+	// Read basic count value of 555 nm channel
+	float readBasicCount555nm();
+	
+	// Read basic count value of 590 nm channel
+	float readBasicCount590nm();
+	
+	// Read basic count value of 630 nm channel
+	float readBasicCount630nm();
+	
+	// Read basic count value of 680 nm channel
+	float readBasicCount680nm();
+	
+	// Read basic count value of clear channel
+	float readBasicCountClear();
+	
+	// Read basic count value of NIR channel
+	float readBasicCountNIR();
+
 };
 
 #endif // ! __SPARKFUN_AS7341L_LIBRARY__

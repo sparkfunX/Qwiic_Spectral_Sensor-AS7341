@@ -5,21 +5,25 @@
   Date: March 17th, 2021
   SparkFun code, firmware, and software is released under the MIT License. Please see LICENSE.md for further details.
   Feel like supporting our work? Buy a board from SparkFun!
-  https://www.sparkfun.com/products/
+  https://www.sparkfun.com/products/17719
 
-  This example shows how to read AS7341L GPIO input pin, prints out it's value and reflects it's state in the LED
-  connected to pin 13.
+  This example shows how to write AS7341L GPIO output pin to drive a LED.
+  GPIO is an open drain output so it will not write a HIGH value but only LOW values. 
+  In this example, GPIO sinks current through a LED, lighting it when the GPIO pin is grounded.
+  The pin will float when the GPIO is written HIGH. If you need to use GPIO as an input for a logic circuit
+  you may need to add a pull-up resistor. You can find further information on that in this tutorial:
+  https://learn.sparkfun.com/tutorials/pull-up-resistors/all
+  
+  Notice that GPIO is 1.8V tolerant ONLY - DO NOT connect GPIO to voltages above 1.8 volts or the sensor may get damaged !
   
   Hardware Connections:
-  - Attach the Qwiic Shield to your Arduino/Photon/ESP32 or other
-  - Plug the sensor onto the shield
-  - Feed Qwiic shield GPIO pin with either GND (LOW) or 3.3V (HIGH). 
-  *** DO NOT CONNECT GPIO TO 5V - DAMAGE TO THE SENSOR MAY OCCUR ! ***
-  - Serial.print it out at 115200 baud to serial monitor.
+  - Plug the Qwiic device to your Arduino/Photon/ESP32 using a cable
+  - Connect a LED cathode to GPIO pin, the LED anode to 1.8V through an appropriate voltage dropping resistor.
+  - Open a serial monitor at 115200bps
 */
 
 #include <Wire.h>
-#include "SparkFun_AS7341L_Library.h"
+#include "SparkFun_AS7341L_Arduino_Library.h"
 
 // Main AS7341L object
 SparkFun_AS7341L as7341L;
@@ -64,13 +68,16 @@ void setup()
 	if(result == false)
 	{
 		PrintErrorMessage();
-		Serial.println("Check you connections. System halted !");
+		Serial.println("Check your connections. System halted !");
 		digitalWrite(LED_BUILTIN, LOW); 
 		while (true) ;
 	}
 	
-	// Configure GPIO as input
-	as7341L.setGpioPinInput();
+	// Configure GPIO as output
+	as7341L.setGpioPinOutput();
+	
+	// Turn off GPIO
+	as7341L.digitalWrite(LOW);
 	
 	// Bring AS7341L to the powered up state
 	as7341L.enable_AS7341L();
@@ -81,21 +88,13 @@ void setup()
 
 void loop()
 {
-	// Read GPIO pin value
-	bool pin = as7341L.digitalRead();
+	// Turn on the LED by connecting it's cathode to GND through the GPIO pin
+	as7341L.digitalWrite(LOW);
+	// Wait a little...
+	delay(500);
 	
-	// Check pin value and print out message/turn the LED on or off accordingly
-	if (pin == true)
-	{
-		Serial.println("Gpio pin is high.");
-		digitalWrite(LED_BUILTIN, HIGH);
-	}
-	else
-	{
-		Serial.println("Gpio pin is low.");
-		digitalWrite(LED_BUILTIN, LOW);
-	}
-	
-	// Wait and start over
+	// Turn off the LED by disconnecting it's cathode pin
+	as7341L.digitalWrite(HIGH);
+	// Wait a little and start over
 	delay(500);
 }

@@ -1,7 +1,7 @@
 /*
   This is a library written for the AMS AS7341L 10-Channel Spectral Sensor Frontend
   SparkFun sells these at its website:
-  https://www.sparkfun.com/products/
+  https://www.sparkfun.com/products/17719
 
   Do you like this library? Help support open source hardware. Buy a board!
 
@@ -53,21 +53,6 @@ enum class AS7341L_GAIN
 	GAIN_X512,
 	GAIN_INVALID
 };
-
-enum class AS7341L_CHANNELS
-{
-	F1,
-	F2,
-	F3,
-	F4,
-	F5,
-	F6,
-	F7,
-	F8,
-	CLEAR,
-	NIR
-};
-
 
 // Registers definitions
 const byte REGISTER_CH0_DATA_L		= 0x95;

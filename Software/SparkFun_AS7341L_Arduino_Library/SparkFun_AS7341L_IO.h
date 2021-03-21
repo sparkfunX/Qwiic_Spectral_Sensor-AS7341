@@ -1,7 +1,7 @@
 /*
   This is a library written for the AMS AS7341L 10-Channel Spectral Sensor Frontend
   SparkFun sells these at its website:
-  https://www.sparkfun.com/products/
+  https://www.sparkfun.com/products/17719
 
   Do you like this library? Help support open source hardware. Buy a board!
 

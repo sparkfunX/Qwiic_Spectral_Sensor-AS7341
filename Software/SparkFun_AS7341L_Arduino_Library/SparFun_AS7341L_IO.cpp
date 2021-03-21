@@ -1,7 +1,7 @@
 /*
   This is a library written for the AMS AS7341L 10-Channel Spectral Sensor Frontend
   SparkFun sells these at its website:
-  https://www.sparkfun.com/products/
+  https://www.sparkfun.com/products/17719
 
   Do you like this library? Help support open source hardware. Buy a board!
 
@@ -55,6 +55,7 @@ void SparkFun_AS7341L_IO::readMultipleBytes(byte registerAddress, byte* buffer, 
 	_i2cPort->requestFrom(_address, packetLength);
 	for (byte i = 0; (i < packetLength) && _i2cPort->available(); i++)
 		buffer[i] = _i2cPort->read();
+
 }
 
 byte SparkFun_AS7341L_IO::readSingleByte(byte registerAddress)
