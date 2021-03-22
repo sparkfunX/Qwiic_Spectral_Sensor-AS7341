@@ -29,7 +29,6 @@ const byte POWER_LED_GPIO = 0x0;
 const byte WHITE_LED_GPIO = 0x01;
 const byte IR_LED_GPIO = 0x02;
 
-
 // Error constants
 const byte ERROR_NONE = 0x0;
 const byte ERROR_AS7341L_I2C_COMM_ERROR = 0x01;
@@ -99,6 +98,7 @@ const byte REGISTER_CFG_8			= 0xb1;
 const byte REGISTER_CFG_9			= 0xb2;
 const byte REGISTER_CFG_10			= 0xb3;
 const byte REGISTER_CFG_12			= 0xb5;
+const byte REGISTER_PERS			= 0xbd;
 const byte REGISTER_GPIO_2			= 0xbe;
 const byte REGISTER_ASTEP_L			= 0xca;
 const byte REGISTER_ASTEP_H			= 0xcb;

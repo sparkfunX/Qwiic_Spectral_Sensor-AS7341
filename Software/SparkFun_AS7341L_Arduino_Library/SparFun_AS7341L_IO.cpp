@@ -97,7 +97,7 @@ bool SparkFun_AS7341L_IO::isBitSet(byte registerAddress, byte const bitPosition)
 {
 	byte value = readSingleByte(registerAddress);
 	byte mask = 1 << bitPosition;
-	if (value & mask)
+	if ((value & mask) != 0)
 		return true;
 	else
 		return false;

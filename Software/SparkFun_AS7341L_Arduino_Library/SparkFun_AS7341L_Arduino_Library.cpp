@@ -133,7 +133,7 @@ void SparkFun_AS7341L::enable_AS7341L()
 
 void SparkFun_AS7341L::disable_AS7341L()
 {
-	as7341_io.clearRegisterBit(REGISTER_ENABLE, 1);
+	as7341_io.clearRegisterBit(REGISTER_ENABLE, 0);
 }
 
 byte SparkFun_AS7341L::getLastError()
@@ -339,8 +339,6 @@ bool SparkFun_AS7341L::readAllChannels(unsigned int* channelData)
 		
 	as7341_io.readMultipleBytes(REGISTER_CH0_DATA_L, buffer, 12);
 	
-	as7341_io.clearRegisterBit(REGISTER_ENABLE, 1);
-
 	for (int i = 0; i < 6; i++)
 		channelData[i] = buffer[2*i + 1] << 8 | buffer[2*i];
 	
@@ -364,8 +362,6 @@ bool SparkFun_AS7341L::readAllChannels(unsigned int* channelData)
 	for (int i = 0; i < 6; i++)
 		channelData[i + 6] = buffer[2*i + 1] << 8 | buffer[2*i];
 	
-	as7341_io.clearRegisterBit(REGISTER_ENABLE, 1);
-
 	return true;
 }
 
@@ -464,26 +460,24 @@ bool SparkFun_AS7341L::readAllChannelsBasicCounts(float* channelDataBasicCounts)
 	return true;
 }
 
-void SparkFun_AS7341L::enableInterupt()
+void SparkFun_AS7341L::enablePinInterupt()
 {
 	as7341_io.setRegisterBit(REGISTER_INTENAB, 0);
-	as7341_io.setRegisterBit(REGISTER_INTENAB, 3);
 }
 
-void SparkFun_AS7341L::disableInterrupt()
+void SparkFun_AS7341L::disablePinInterrupt()
 {
 	as7341_io.clearRegisterBit(REGISTER_INTENAB, 0);
-	as7341_io.clearRegisterBit(REGISTER_INTENAB, 3);
 }
 
-void SparkFun_AS7341L::clearInterrupt()
+void SparkFun_AS7341L::clearPinInterrupt()
 {
 	as7341_io.writeSingleByte(REGISTER_STATUS, 0xff);
 }
 
 byte SparkFun_AS7341L::readRegister(byte reg)
 {
-	as7341_io.readSingleByte(reg);
+	return as7341_io.readSingleByte(reg);
 }
 
 void SparkFun_AS7341L::writeRegister(byte reg, byte value)
@@ -551,7 +545,6 @@ uint16_t SparkFun_AS7341L::readSingleChannelValue()
 	as7341_io.readMultipleBytes(REGISTER_CH0_DATA_L, buffer, 2);
 	uint16_t result = buffer[1] << 8;
 	result += buffer[0];
-	as7341_io.clearRegisterBit(REGISTER_ENABLE, 1);
 	
 	return result;
 }
@@ -903,56 +896,157 @@ float SparkFun_AS7341L::readBasicCount415nm()
 	return readSingleBasicCountChannelValue(read415nm());
 }
 
-
 float SparkFun_AS7341L::readBasicCount445nm()
 {
 	return readSingleBasicCountChannelValue(read445nm());
 }
-
 
 float SparkFun_AS7341L::readBasicCount480nm()
 {
 	return readSingleBasicCountChannelValue(read480nm());
 }
 
-
 float SparkFun_AS7341L::readBasicCount515nm()
 {
 	return readSingleBasicCountChannelValue(read515nm());
 }
-
 
 float SparkFun_AS7341L::readBasicCount555nm()
 {
 	return readSingleBasicCountChannelValue(read555nm());
 }
 
-
 float SparkFun_AS7341L::readBasicCount590nm()
 {
 	return readSingleBasicCountChannelValue(read590nm());
 }
-
 
 float SparkFun_AS7341L::readBasicCount630nm()
 {
 	return readSingleBasicCountChannelValue(read630nm());
 }
 
-
 float SparkFun_AS7341L::readBasicCount680nm()
 {
 	return readSingleBasicCountChannelValue(read680nm());
 }
-
 
 float SparkFun_AS7341L::readBasicCountClear()
 {
 	return readSingleBasicCountChannelValue(readClear());
 }
 
-
 float SparkFun_AS7341L::readBasicCountNIR()
 {
 	return readSingleBasicCountChannelValue(readNIR());
+}
+
+void SparkFun_AS7341L::setLowThreshold(unsigned int threshold)
+{
+	byte low = threshold & 0xff;
+	byte high = threshold >> 8;
+	
+	as7341_io.writeSingleByte(REGISTER_SP_TH_L_LSB, low);
+	as7341_io.writeSingleByte(REGISTER_SP_TH_L_MSB, high);
+}
+
+void SparkFun_AS7341L::setHighThreshold(unsigned int threshold)
+{
+	byte low = threshold & 0xff;
+	byte high = threshold >> 8;
+	
+	as7341_io.writeSingleByte(REGISTER_SP_TH_H_LSB, low);
+	as7341_io.writeSingleByte(REGISTER_SP_TH_H_MSB, high);
+}
+
+unsigned int SparkFun_AS7341L::getLowThreshold()
+{
+	byte low = as7341_io.readSingleByte(REGISTER_SP_TH_L_LSB);
+	byte high = as7341_io.readSingleByte(REGISTER_SP_TH_L_MSB);
+	return ((high << 8) | low);
+}
+
+unsigned int SparkFun_AS7341L::getHighThreshold()
+{
+	byte low = as7341_io.readSingleByte(REGISTER_SP_TH_H_LSB);
+	byte high = as7341_io.readSingleByte(REGISTER_SP_TH_H_MSB);
+	return ((high << 8) | low);
+}
+
+void SparkFun_AS7341L::setAPERS(byte value)
+{
+	// Register value must be less than 15
+	value &= 0x0f;
+	
+	// Get current APERS value and change bits 3..0 only
+	byte currentAPERS = getAPERS();
+	currentAPERS &= 0x0f;
+	currentAPERS |= value;
+	// Write value back
+	as7341_io.writeSingleByte(REGISTER_PERS, currentAPERS);
+}
+
+byte SparkFun_AS7341L::getAPERS()
+{
+	return as7341_io.readSingleByte(REGISTER_PERS);
+}
+
+void SparkFun_AS7341L::enableMeasurements()
+{
+	as7341_io.setRegisterBit(REGISTER_STATUS, 1);
+}
+
+void SparkFun_AS7341L::disableMeasurements()
+{
+	as7341_io.clearRegisterBit(REGISTER_STATUS, 1);
+}
+
+bool SparkFun_AS7341L::isMeasurementEnabled()
+{
+	return as7341_io.isBitSet(REGISTER_STATUS, 1);
+}
+
+void SparkFun_AS7341L::clearThresholdInterrupts()
+{
+	as7341_io.writeSingleByte(REGISTER_STATUS, 0xff);
+}
+
+void SparkFun_AS7341L::enableThresholdInterrupt()
+{
+	as7341_io.writeSingleByte(REGISTER_CFG_12, 0);
+	delay(10);
+	as7341_io.setRegisterBit(REGISTER_INTENAB, 3);
+}
+
+void SparkFun_AS7341L::disableThresholdInterrupt()
+{
+	as7341_io.clearRegisterBit(REGISTER_INTENAB, 3);
+}
+
+bool SparkFun_AS7341L::lowThresholdInterruptSet()
+{
+	bool lowSet = as7341_io.isBitSet(REGISTER_STATUS_3, 4);
+	bool highSet = as7341_io.isBitSet(REGISTER_STATUS_3, 5);
+	if (lowSet)
+	{
+		return (!highSet);
+	}
+	else
+	{
+		return false;
+	}
+}
+
+bool SparkFun_AS7341L::highThresholdInterruptSet()
+{
+	bool lowSet = as7341_io.isBitSet(REGISTER_STATUS_3, 4);
+	bool highSet = as7341_io.isBitSet(REGISTER_STATUS_3, 5);
+	if (highSet)
+	{
+		return (!lowSet);
+	}
+	else
+	{
+		return false;
+	}
 }

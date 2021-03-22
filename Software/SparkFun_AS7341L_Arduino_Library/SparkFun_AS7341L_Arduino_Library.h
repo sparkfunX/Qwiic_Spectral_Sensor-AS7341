@@ -26,6 +26,7 @@
 class SparkFun_AS7341L
 {
 private:
+
 	// AS7341L I2C interface object
 	SparkFun_AS7341L_IO as7341_io;
 	
@@ -118,13 +119,13 @@ public:
 	AS7341L_GAIN getGain();
 
 	// Enables interrupt pin functionality
-	void enableInterupt();
+	void enablePinInterupt();
 	
 	// Disables interrupt pin functionality
-	void disableInterrupt();
+	void disablePinInterrupt();
 	
 	// Clears the interrupt flag
-	void clearInterrupt();
+	void clearPinInterrupt();
 	
 	// Reads register
 	byte readRegister(byte reg);
@@ -207,6 +208,48 @@ public:
 	// Read basic count value of NIR channel
 	float readBasicCountNIR();
 
+	// Sets the low threshold value
+	void setLowThreshold(unsigned int threshold);
+	
+	// Sets the high threshold value
+	void setHighThreshold(unsigned int threshold);
+	
+	// Reads low threshold value
+	unsigned int getLowThreshold();
+	
+	// Reads high threshold value;
+	unsigned int getHighThreshold();
+	
+	// Sets APERS register which will dictate how many consecutive samples must be above/below thresholds to trigger an interrupt. Values allowed: 0 to 15.
+	void setAPERS(byte value);
+	
+	// Gets APERS register value
+	byte getAPERS();
+	
+	// Enable measurements by setting SP_EN bit
+	void enableMeasurements();
+	
+	// Disables measurements by clearing SP_EN bit
+	void disableMeasurements();
+	
+	// Returns true if AS7341L has SP_EN set
+	bool isMeasurementEnabled();
+		
+	// Enable threshold interrupt generation
+	void enableThresholdInterrupt();
+	
+	// Disable threshold interrupt generation
+	void disableThresholdInterrupt();
+	
+	// Clear threshold interrupt for allowing new interrupts to be triggered
+	void clearThresholdInterrupts();
+	
+	// Returns true if the channel value is lower than the low threshold value
+	bool lowThresholdInterruptSet();
+	
+	// Returns true if the channel value is higher than the high threshold value
+	bool highThresholdInterruptSet();
+	
 };
 
 #endif // ! __SPARKFUN_AS7341L_LIBRARY__
